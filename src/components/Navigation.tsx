@@ -7,6 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import LoginDialog from "./LoginDialog";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -83,12 +84,16 @@ const Navigation = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button variant="outline" size="sm">
-              Login
-            </Button>
-            <Button variant="hero" size="sm">
-              Register
-            </Button>
+            <LoginDialog>
+              <Button variant="outline" size="sm">
+                Login
+              </Button>
+            </LoginDialog>
+            <LoginDialog>
+              <Button variant="hero" size="sm">
+                Register
+              </Button>
+            </LoginDialog>
           </div>
 
           {/* Mobile Menu Button */}
@@ -144,12 +149,16 @@ const Navigation = () => {
                 </DropdownMenu>
 
                 <div className="flex gap-3">
-                  <Button variant="outline" size="sm" className="flex-1">
-                    Login
-                  </Button>
-                  <Button variant="hero" size="sm" className="flex-1">
-                    Register
-                  </Button>
+                  <LoginDialog>
+                    <Button variant="outline" size="sm" className="flex-1">
+                      Login
+                    </Button>
+                  </LoginDialog>
+                  <LoginDialog>
+                    <Button variant="hero" size="sm" className="flex-1">
+                      Register
+                    </Button>
+                  </LoginDialog>
                 </div>
               </div>
             </div>
