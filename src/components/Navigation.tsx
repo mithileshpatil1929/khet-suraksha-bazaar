@@ -1,9 +1,23 @@
 import { Button } from "@/components/ui/button";
-import { MapPin, ShoppingCart, Bell, Menu, Smartphone } from "lucide-react";
+import { MapPin, ShoppingCart, Bell, Menu, Smartphone, Globe, Bot } from "lucide-react";
 import { useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [language, setLanguage] = useState("hindi");
+
+  const languages = [
+    { code: "hindi", name: "हिंदी", flag: "🇮🇳" },
+    { code: "english", name: "English", flag: "🇺🇸" },
+    { code: "punjabi", name: "ਪੰਜਾਬੀ", flag: "🇮🇳" },
+    { code: "gujarati", name: "ગુજરાતી", flag: "🇮🇳" },
+  ];
 
   const navItems = [
     { name: "Home", href: "#home", icon: <Smartphone className="h-4 w-4" /> },
@@ -40,6 +54,35 @@ const Navigation = () => {
 
           {/* Action Buttons */}
           <div className="hidden md:flex items-center gap-3">
+            {/* AI Assistant Button */}
+            <Button variant="outline" size="sm" className="gap-2">
+              <Bot className="h-4 w-4" />
+              AI सहायक
+            </Button>
+            
+            {/* Language Changer */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="gap-2">
+                  <Globe className="h-4 w-4" />
+                  {languages.find(lang => lang.code === language)?.flag}
+                  {languages.find(lang => lang.code === language)?.name}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {languages.map((lang) => (
+                  <DropdownMenuItem 
+                    key={lang.code}
+                    onClick={() => setLanguage(lang.code)}
+                    className="gap-2"
+                  >
+                    <span>{lang.flag}</span>
+                    {lang.name}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             <Button variant="outline" size="sm">
               Login
             </Button>
@@ -72,13 +115,42 @@ const Navigation = () => {
                   {item.name}
                 </a>
               ))}
-              <div className="flex gap-3 mt-4">
-                <Button variant="outline" size="sm" className="flex-1">
-                  Login
+              <div className="flex flex-col gap-3 mt-4">
+                <Button variant="outline" size="sm" className="gap-2">
+                  <Bot className="h-4 w-4" />
+                  AI सहायक
                 </Button>
-                <Button variant="hero" size="sm" className="flex-1">
-                  Register
-                </Button>
+                
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="gap-2">
+                      <Globe className="h-4 w-4" />
+                      {languages.find(lang => lang.code === language)?.flag}
+                      {languages.find(lang => lang.code === language)?.name}
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    {languages.map((lang) => (
+                      <DropdownMenuItem 
+                        key={lang.code}
+                        onClick={() => setLanguage(lang.code)}
+                        className="gap-2"
+                      >
+                        <span>{lang.flag}</span>
+                        {lang.name}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <div className="flex gap-3">
+                  <Button variant="outline" size="sm" className="flex-1">
+                    Login
+                  </Button>
+                  <Button variant="hero" size="sm" className="flex-1">
+                    Register
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
