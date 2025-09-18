@@ -1,9 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Star, MapPin, MessageCircle, ShoppingCart, Truck, Phone, Camera } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Star, MapPin, MessageCircle, ShoppingCart, Truck, Phone, Camera, Upload, Search, Filter, Send } from "lucide-react";
+import { useState } from "react";
 
 const MarketplaceSection = () => {
+  const [chatMessages, setChatMessages] = useState<{[key: number]: string[]}>({});
+  const [newMessage, setNewMessage] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState<number | null>(null);
   const products = [
     {
       id: 1,
@@ -98,10 +107,82 @@ const MarketplaceSection = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="text-center">
-              <Button variant="hero" size="lg" className="w-full mb-4">
-                <Camera className="mr-2 h-5 w-5" />
-                List Product Now
-              </Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="hero" size="lg" className="w-full mb-4">
+                    <Camera className="mr-2 h-5 w-5" />
+                    List Product Now
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[500px]">
+                  <DialogHeader>
+                    <DialogTitle>List Your Product</DialogTitle>
+                    <DialogDescription>
+                      Add your product details to start selling
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="grid gap-4 py-4">
+                    <div className="grid gap-2">
+                      <Label htmlFor="product-name">Product Name</Label>
+                      <Input id="product-name" placeholder="e.g., Fresh Organic Wheat" />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="category">Category</Label>
+                      <Select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="grains">Grains & Cereals</SelectItem>
+                          <SelectItem value="vegetables">Vegetables</SelectItem>
+                          <SelectItem value="fruits">Fruits</SelectItem>
+                          <SelectItem value="seeds">Seeds</SelectItem>
+                          <SelectItem value="dairy">Dairy</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="grid gap-2">
+                        <Label htmlFor="price">Price</Label>
+                        <Input id="price" placeholder="₹2,200" />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="unit">Unit</Label>
+                        <Select>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select unit" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="kg">per kg</SelectItem>
+                            <SelectItem value="quintal">per quintal</SelectItem>
+                            <SelectItem value="piece">per piece</SelectItem>
+                            <SelectItem value="dozen">per dozen</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="quantity">Available Quantity</Label>
+                      <Input id="quantity" placeholder="50 quintal" />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="description">Description</Label>
+                      <Textarea id="description" placeholder="Describe your product quality, organic certification, etc." />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="images">Product Images</Label>
+                      <div className="border-2 border-dashed border-muted rounded-lg p-6 text-center">
+                        <Upload className="mx-auto h-8 w-8 text-muted-foreground mb-2" />
+                        <p className="text-sm text-muted-foreground">Click to upload images</p>
+                      </div>
+                    </div>
+                    <Button className="w-full">
+                      <Camera className="mr-2 h-4 w-4" />
+                      List Product
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
               <p className="text-sm text-muted-foreground">
                 Photo upload → Price set → Buyers connect → Payment secure
               </p>
@@ -119,10 +200,83 @@ const MarketplaceSection = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="text-center">
-              <Button variant="earth" size="lg" className="w-full mb-4">
-                <ShoppingCart className="mr-2 h-5 w-5" />
-                Browse Products
-              </Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="earth" size="lg" className="w-full mb-4">
+                    <ShoppingCart className="mr-2 h-5 w-5" />
+                    Browse Products
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[600px]">
+                  <DialogHeader>
+                    <DialogTitle>Browse Products</DialogTitle>
+                    <DialogDescription>
+                      Search and filter products to find what you need
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="grid gap-4 py-4">
+                    <div className="grid gap-2">
+                      <Label htmlFor="search">Search Products</Label>
+                      <div className="relative">
+                        <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                        <Input id="search" placeholder="Search for wheat, rice, vegetables..." className="pl-10" />
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="grid gap-2">
+                        <Label htmlFor="category-filter">Category</Label>
+                        <Select>
+                          <SelectTrigger>
+                            <SelectValue placeholder="All categories" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="all">All Categories</SelectItem>
+                            <SelectItem value="grains">Grains & Cereals</SelectItem>
+                            <SelectItem value="vegetables">Vegetables</SelectItem>
+                            <SelectItem value="fruits">Fruits</SelectItem>
+                            <SelectItem value="seeds">Seeds</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="location-filter">Location</Label>
+                        <Select>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Any location" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="all">Any Location</SelectItem>
+                            <SelectItem value="haryana">Haryana</SelectItem>
+                            <SelectItem value="punjab">Punjab</SelectItem>
+                            <SelectItem value="delhi">Delhi</SelectItem>
+                            <SelectItem value="up">Uttar Pradesh</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="grid gap-2">
+                        <Label htmlFor="min-price">Min Price (₹)</Label>
+                        <Input id="min-price" placeholder="0" type="number" />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="max-price">Max Price (₹)</Label>
+                        <Input id="max-price" placeholder="10000" type="number" />
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" className="flex-1">
+                        <Filter className="mr-2 h-4 w-4" />
+                        Apply Filters
+                      </Button>
+                      <Button className="flex-1">
+                        <Search className="mr-2 h-4 w-4" />
+                        Search Products
+                      </Button>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
               <p className="text-sm text-muted-foreground">
                 Search → Filter → Order → Track delivery → Payment
               </p>
@@ -176,10 +330,73 @@ const MarketplaceSection = () => {
                   </div>
 
                   <div className="flex gap-2">
-                    <Button variant="default" size="sm" className="flex-1" disabled={!product.inStock}>
-                      <MessageCircle className="mr-1 h-3 w-3" />
-                      Chat
-                    </Button>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="default" size="sm" className="flex-1" disabled={!product.inStock}>
+                          <MessageCircle className="mr-1 h-3 w-3" />
+                          Chat
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[400px]">
+                        <DialogHeader>
+                          <DialogTitle>Chat with {product.seller}</DialogTitle>
+                          <DialogDescription>
+                            {product.title} - {product.price} {product.unit}
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid gap-4 py-4">
+                          <div className="border rounded-lg p-3 h-[300px] overflow-y-auto bg-muted/30">
+                            {chatMessages[product.id]?.length > 0 ? (
+                              chatMessages[product.id].map((message, index) => (
+                                <div key={index} className="mb-2 p-2 bg-primary/10 rounded text-sm">
+                                  {message}
+                                </div>
+                              ))
+                            ) : (
+                              <div className="text-center text-muted-foreground text-sm mt-20">
+                                <MessageCircle className="mx-auto h-8 w-8 mb-2" />
+                                Start a conversation with {product.seller}
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex gap-2">
+                            <Input 
+                              placeholder="Type your message..." 
+                              value={selectedProduct === product.id ? newMessage : ""}
+                              onChange={(e) => {
+                                setSelectedProduct(product.id);
+                                setNewMessage(e.target.value);
+                              }}
+                              onKeyPress={(e) => {
+                                if (e.key === 'Enter') {
+                                  if (newMessage.trim()) {
+                                    setChatMessages(prev => ({
+                                      ...prev,
+                                      [product.id]: [...(prev[product.id] || []), `You: ${newMessage}`]
+                                    }));
+                                    setNewMessage("");
+                                  }
+                                }
+                              }}
+                            />
+                            <Button 
+                              size="sm"
+                              onClick={() => {
+                                if (newMessage.trim()) {
+                                  setChatMessages(prev => ({
+                                    ...prev,
+                                    [product.id]: [...(prev[product.id] || []), `You: ${newMessage}`]
+                                  }));
+                                  setNewMessage("");
+                                }
+                              }}
+                            >
+                              <Send className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
                     <Button variant="outline" size="sm" className="flex-1" disabled={!product.inStock}>
                       <Phone className="mr-1 h-3 w-3" />
                       Call
