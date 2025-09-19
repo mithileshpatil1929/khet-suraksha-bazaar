@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import heroImage from "@/assets/hero-farming.jpg";
-import { MapPin, Bell, ShoppingCart, Truck, Mic, Camera, MessageCircle, Bot, Upload, Send } from "lucide-react";
+import { MapPin, Bell, ShoppingCart, Truck, Mic, Camera, MessageCircle, Bot, Upload, Send, Leaf, Droplets, BarChart3, TestTube } from "lucide-react";
 import { useState } from "react";
 
 const HeroSection = () => {
@@ -59,7 +59,7 @@ const HeroSection = () => {
           </div>
 
           {/* Main Feature Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
             {/* Voice Assistant */}
             <Dialog>
               <DialogTrigger asChild>
@@ -191,6 +191,135 @@ const HeroSection = () => {
                   <p className="text-xs text-muted-foreground text-center">
                     यहाँ आप दूसरे किसानों से सलाह ले सकते हैं और अपना अनुभव साझा कर सकते हैं
                   </p>
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            {/* Soil Health Monitor */}
+            <Dialog>
+              <DialogTrigger asChild>
+                <div className="group bg-gradient-to-br from-blue-500/20 to-blue-600/10 backdrop-blur-sm rounded-xl p-6 border border-blue-500/30 hover:border-blue-500/50 transition-all duration-300 hover:scale-105 cursor-pointer">
+                  <div className="flex flex-col items-center text-center">
+                    <div className="bg-blue-500/20 rounded-full p-4 mb-4 group-hover:bg-blue-500/30 transition-colors">
+                      <Leaf className="h-8 w-8 text-blue-400" />
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-2">Soil Health</h3>
+                    <p className="text-gray-300 text-sm">मिट्टी की जांच और सुझाव</p>
+                  </div>
+                </div>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle className="flex items-center gap-2">
+                    <Leaf className="h-5 w-5 text-blue-500" />
+                    मिट्टी स्वास्थ्य मॉनिटरिंग
+                  </DialogTitle>
+                </DialogHeader>
+                <div className="space-y-6">
+                  {/* Current Soil Status */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-muted/50 p-4 rounded-lg">
+                      <div className="flex items-center gap-2 mb-3">
+                        <TestTube className="h-5 w-5 text-blue-500" />
+                        <h4 className="font-medium">pH Level</h4>
+                      </div>
+                      <div className="text-2xl font-bold text-blue-500 mb-1">6.8</div>
+                      <p className="text-sm text-green-600">✓ Optimal Range</p>
+                      <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                        <div className="bg-blue-500 h-2 rounded-full" style={{width: '68%'}}></div>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-muted/50 p-4 rounded-lg">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Droplets className="h-5 w-5 text-blue-500" />
+                        <h4 className="font-medium">नमी</h4>
+                      </div>
+                      <div className="text-2xl font-bold text-blue-500 mb-1">45%</div>
+                      <p className="text-sm text-yellow-600">⚠ थोड़ा कम</p>
+                      <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                        <div className="bg-yellow-500 h-2 rounded-full" style={{width: '45%'}}></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Nutrient Levels */}
+                  <div className="bg-muted/50 p-4 rounded-lg">
+                    <h4 className="font-medium mb-3 flex items-center gap-2">
+                      <BarChart3 className="h-5 w-5 text-blue-500" />
+                      पोषक तत्व स्तर
+                    </h4>
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm">नाइट्रोजन (N)</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-24 bg-gray-200 rounded-full h-2">
+                            <div className="bg-green-500 h-2 rounded-full" style={{width: '75%'}}></div>
+                          </div>
+                          <span className="text-sm text-green-600">अच्छा</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm">फॉस्फोरस (P)</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-24 bg-gray-200 rounded-full h-2">
+                            <div className="bg-yellow-500 h-2 rounded-full" style={{width: '50%'}}></div>
+                          </div>
+                          <span className="text-sm text-yellow-600">मध्यम</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm">पोटाशियम (K)</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-24 bg-gray-200 rounded-full h-2">
+                            <div className="bg-red-500 h-2 rounded-full" style={{width: '30%'}}></div>
+                          </div>
+                          <span className="text-sm text-red-600">कम</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Recommendations */}
+                  <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                    <h4 className="font-medium mb-3 text-blue-800">💡 सुझाव और सिफारिशें</h4>
+                    <ul className="space-y-2 text-sm text-blue-700">
+                      <li>• पोटाशियम की कमी है - मुरेट ऑफ पोटाश 50 kg/एकड़ डालें</li>
+                      <li>• मिट्टी में नमी बढ़ाने के लिए ड्रिप इरिगेशन का उपयोग करें</li>
+                      <li>• जैविक खाद (कम्पोस्ट) मिलाएं - 2 टन/एकड़</li>
+                      <li>• मिट्टी की जांच हर 6 महीने में कराएं</li>
+                    </ul>
+                  </div>
+
+                  {/* Test History */}
+                  <div className="bg-muted/50 p-4 rounded-lg">
+                    <h4 className="font-medium mb-3">हाल की जांच रिपोर्ट</h4>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>15 दिसंबर 2024</span>
+                        <span className="text-green-600">pH: 6.8, नमी: 45%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>1 नवंबर 2024</span>
+                        <span className="text-yellow-600">pH: 6.5, नमी: 40%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>15 अक्टूबर 2024</span>
+                        <span className="text-red-600">pH: 6.2, नमी: 35%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <Button className="flex-1">
+                      <TestTube className="mr-2 h-4 w-4" />
+                      नई जांच बुक करें
+                    </Button>
+                    <Button variant="outline" className="flex-1">
+                      <BarChart3 className="mr-2 h-4 w-4" />
+                      डिटेल रिपोर्ट देखें
+                    </Button>
+                  </div>
                 </div>
               </DialogContent>
             </Dialog>
